@@ -1,0 +1,19 @@
+{
+  "name": "fluttter-bottom-navigation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dawit-michael/Fluttter-Bottom-Navigation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dawit-michael/Fluttter-Bottom-Navigation/issues"
+  },
+  "homepage": "https://github.com/dawit-michael/Fluttter-Bottom-Navigation#readme"
+}
