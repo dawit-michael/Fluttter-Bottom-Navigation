@@ -1,21 +1,27 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bottom_navigation/item.dart';
 import 'package:flutter_bottom_navigation/painter.dart';
 
 /// CustomNavigation Component
+///
+/// ```
+/// double height
+/// Color accentColor
+/// List<BarItem> menuItems
+/// Function onTap
+/// ```
 class CustomNavigation extends StatelessWidget {
   final double height;
   final Color accentColor;
   final Color backgroundColor;
   final List<BarItem> menuItems;
+  final Function onTap;
 
   CustomNavigation({
     Key key,
     this.height = 100,
     @required this.menuItems,
-    this.accentColor = Colors.tealAccent,
+    @required this.onTap,
+    this.accentColor = Colors.black,
     this.backgroundColor = Colors.white,
   });
   @override
@@ -31,56 +37,44 @@ class CustomNavigation extends StatelessWidget {
             bottom: -10,
             child: CustomPaint(
               /// a widget that paints the cropped custom background
-              painter: Painter(),
+              painter: Painter(backgroundColor: backgroundColor),
               child: Container(
                 height: 70,
               ),
             ),
           ),
           Positioned(
-              left: 0,
-              right: 0,
-              bottom: 34,
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                    color: Colors.tealAccent, shape: BoxShape.circle),
-                child: IconButton(icon: Icon(Icons.add), onPressed: () {}),
-              )),
+              left: 0, right: 0, bottom: 34, child: _specialButton(onTap)),
           Positioned(
-            bottom: 10,
+            bottom: 6,
             left: 0,
             right: 0,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Flexible(
                     flex: 1,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        BarItem(index: 0, iconData: Icons.home_outlined),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        BarItem(index: 1, iconData: Icons.grid_view),
+                        menuItems[0],
+                        menuItems[1],
                       ],
                     ),
                   ),
                   Flexible(
+                      child: SizedBox(
+                    width: 100,
+                  )),
+                  Flexible(
                     flex: 1,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        BarItem(
-                            index: 2, iconData: Icons.favorite_border_rounded),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        BarItem(
-                            index: 3, iconData: Icons.person_outline_rounded),
+                        menuItems[2],
+                        menuItems[3],
                       ],
                     ),
                   )
@@ -94,20 +88,46 @@ class CustomNavigation extends StatelessWidget {
   }
 }
 
+/// middle special button
+/// used for the center button on the navigation Bar
+/// ```
+/// takes Function onTap
+/// ````
+Widget _specialButton(Function onTap) {
+  return Container(
+    padding: const EdgeInsets.all(4),
+    decoration: BoxDecoration(color: Colors.tealAccent, shape: BoxShape.circle),
+    child: IconButton(
+        icon: Icon(Icons.add),
+        onPressed: () {
+          onTap();
+        }),
+  );
+}
+
 /// use this bar item for the bottom navigation icons
+/// ```
+/// final int index;  // index of the icon
+/// final int currentIndex;  // index of current active icon
+/// final IconData iconData;  // icon widget to display on the bar
+/// final double size;
+/// final Color selected;  // color for when icon is active
+/// final Color unselected;  // Color for when icon is inactive
+/// final Function(int) onTap;  // function to change index to selected icon
+/// ````
 class BarItem extends StatelessWidget {
   final int index;
   final int currentIndex;
-  final ValueChanged<double> onTap;
   final IconData iconData;
   final double size;
   final Color selected;
   final Color unselected;
+  final Function(int) onTap;
 
   const BarItem({
     Key key,
-    this.index,
-    this.onTap,
+    @required this.index,
+    @required this.onTap,
     this.iconData,
     this.size = 24,
     this.selected = Colors.black,
@@ -118,11 +138,12 @@ class BarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      behavior: HitTestBehavior.translucent,
+      // behavior: HitTestBehavior.translucent,
       onTap: () {
-        // do something here
+        onTap(index);
       },
       child: Container(
+        padding: const EdgeInsets.all(4),
         child: Icon(
           iconData,
           size: size,
