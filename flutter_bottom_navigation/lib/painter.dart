@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 /// Custom bottom bar painter
 class Painter extends CustomPainter {
+  final Color backgroundColor;
+
+  Painter({Key key, this.backgroundColor = Colors.white});
   @override
   void paint(Canvas canvas, Size size) {
     Path path_0 = Path();
