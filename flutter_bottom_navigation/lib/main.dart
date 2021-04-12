@@ -113,7 +113,23 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(bottom: 35),
+        child: FloatingActionButton(
+          elevation: 0,
+          backgroundColor: Color(0xff1Bdbb3),
+          child: Icon(
+            Icons.add,
+            size: 25,
+          ),
+          onPressed: () {
+            print('Hello');
+          },
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

@@ -44,8 +44,6 @@ class CustomNavigation extends StatelessWidget {
             ),
           ),
           Positioned(
-              left: 0, right: 0, bottom: 34, child: _specialButton(onTap)),
-          Positioned(
             bottom: 6,
             left: 0,
             right: 0,
@@ -86,23 +84,6 @@ class CustomNavigation extends StatelessWidget {
       ),
     );
   }
-}
-
-/// middle special button
-/// used for the center button on the navigation Bar
-/// ```
-/// takes Function onTap
-/// ````
-Widget _specialButton(Function onTap) {
-  return Container(
-    padding: const EdgeInsets.all(4),
-    decoration: BoxDecoration(color: Colors.tealAccent, shape: BoxShape.circle),
-    child: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          onTap();
-        }),
-  );
 }
 
 /// use this bar item for the bottom navigation icons
